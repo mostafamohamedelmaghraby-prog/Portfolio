@@ -245,9 +245,9 @@
 <script>
   var items = [
     {
-      title: "Doritos commercial remake",
-      desc: "A reimagined take on a Doritos commercial, rebuilt with a different style.",
-      videoSrc: "TrojanDoritos.mp4"
+      title: "Snack brand remake",
+      desc: "A reimagined take on a well-known chip commercial, rebuilt shot for shot.",
+      videoSrc: "videos/doritos-remake.mp4"
     },
     {
       title: "Linen dress campaign",
@@ -294,20 +294,25 @@
     descEl.textContent = item.desc;
     renderDots();
 
-    var existingIframe = frameEl.querySelector('iframe');
-    if(existingIframe) existingIframe.remove();
+    var existingVideo = frameEl.querySelector('video');
+    if(existingVideo) existingVideo.remove();
 
-    if(item.videoId){
+    if(item.videoSrc){
       placeholderEl.style.display = 'none';
-      var iframe = document.createElement('iframe');
-      iframe.src = 'https://www.youtube.com/embed/' + item.videoId;
-      iframe.title = item.title;
-      iframe.allow = 'autoplay; encrypted-media';
-      iframe.allowFullscreen = true;
-      frameEl.appendChild(iframe);
+      var video = document.createElement('video');
+      video.src = item.videoSrc;
+      video.setAttribute('playsinline', '');
+      video.muted = true;
+      video.controls = true;
+      video.style.position = 'absolute';
+      video.style.inset = '0';
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+      frameEl.appendChild(video);
     } else {
       placeholderEl.style.display = 'flex';
-      instructionEl.textContent = 'Add "' + item.title + '" video: set its videoId in the script at the bottom of the HTML';
+      instructionEl.textContent = 'Add "' + item.title + '" video: set its videoSrc in the script at the bottom of the HTML';
     }
   }
 
