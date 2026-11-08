@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mostafa Elmaghraby — AI Video Direction for Brands</title>
+<meta name="description" content="Cinematic ad videos built entirely with AI. Creative direction and camera craft of a full production studio, without the studio's timeline or price tag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #16140f;
+    --bg-alt: #1c1a14;
+    --line: rgba(237,234,224,0.12);
+    --text: #edeae0;
+    --text-muted: #a8a397;
+    --accent: #b8925a;
+    --accent-2: #6f9990;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --max: 720px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none !important; transition:none !important;} }
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--sans); line-height:1.6; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+  section{padding:88px 0;}
+  section + section{border-top:1px solid var(--line);}
+  h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; letter-spacing:-0.01em;}
+  h1{font-size:clamp(34px,6vw,52px); line-height:1.08;}
+  h2{font-size:clamp(24px,4vw,30px); margin-bottom:28px;}
+  p{margin:0 0 16px;}
+  a{color:inherit;}
+  .muted{color:var(--text-muted);}
+  .max-measure{max-width:58ch;}
+
+  /* Hero */
+  .hero{padding-top:120px;}
+  .hero p.lede{font-size:19px; max-width:52ch; color:var(--text-muted); margin-top:20px;}
+  .cta-row{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+
+  /* One-time hero entrance */
+  .hero h1, .hero .lede, .hero .cta-row{
+    opacity:0; transform:translateY(10px);
+    animation:hero-in .7s ease-out forwards;
+  }
+  .hero .lede{animation-delay:.12s;}
+  .hero .cta-row{animation-delay:.22s;}
+  @keyframes hero-in{ to{opacity:1; transform:translateY(0);} }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--sans); font-size:15px; font-weight:500;
+    padding:13px 22px; border-radius:2px; text-decoration:none;
+    border:1px solid var(--line); transition:border-color .2s, background .2s;
+  }
+  .btn-primary{background:var(--accent); color:#1c1a14; border-color:var(--accent);}
+  .btn-primary:hover{background:#c9a06c;}
+  .btn-ghost:hover{border-color:var(--text-muted);}
+
+  /* Intro / trust */
+  .intro-grid{display:grid; grid-template-columns:1fr; gap:32px;}
+  .video-frame{
+    position:relative; width:100%; aspect-ratio:16/9; background:var(--bg-alt);
+    border:1px solid var(--line); overflow:hidden;
+  }
+  .video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .video-placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px; color:var(--text-muted);
+    font-size:13px; text-align:center; padding:20px;
+  }
+  .video-placeholder .ring{
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--text-muted);
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+
+  /* Benefits */
+  .benefits-intro{color:var(--text-muted); max-width:58ch; margin-bottom:32px;}
+  .benefit-list{list-style:none; margin:0; padding:0; border-top:1px solid var(--line);}
+  .benefit-list li{border-bottom:1px solid var(--line); padding:20px 0;}
+  .benefit-title{font-family:var(--serif); font-size:18px; margin:0 0 8px;}
+  .benefit-list li p:last-child{margin:0; color:var(--text-muted); font-size:15px; max-width:60ch;}
+  .benefit-fit{margin-top:56px;}
+  .benefit-fit h3{font-size:clamp(20px,3.2vw,24px); margin-bottom:20px;}
+  .fit-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  .fit-label{font-family:var(--serif); font-size:18px; margin:0 0 10px;}
+  .fit-col ul{list-style:none; margin:0; padding:0; color:var(--text-muted); font-size:15px;}
+  .fit-col li{padding:6px 0;}
+  .fit-note{margin:24px 0 0; font-size:15px; max-width:60ch;}
+  @media (max-width:560px){ .fit-grid{grid-template-columns:1fr; gap:24px;} }
+
+  /* Portfolio */
+  .pf-caption{min-height:76px; margin-bottom:16px; transition:opacity .25s ease;}
+  .pf-caption.is-switching{opacity:0;}
+  .pf-tag{font-size:13px; color:var(--accent-2); margin:0 0 6px;}
+  .pf-title{font-family:var(--serif); font-size:22px; font-weight:500; margin:0 0 6px;}
+  .pf-desc{font-size:15px; color:var(--text-muted); margin:0;}
+  #work .video-frame{transition:opacity .25s ease;}
+  #work .video-frame.is-switching{opacity:0;}
+  .pf-nav{display:flex; align-items:center; justify-content:space-between; margin-top:18px;}
+  .pf-dots{display:flex; gap:7px;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--line); border:none; padding:0; cursor:pointer;}
+  .dot.active{background:var(--accent);}
+  .pf-arrows{display:flex; gap:10px;}
+  .arrow-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    background:transparent; color:var(--text); display:flex; align-items:center;
+    justify-content:center; cursor:pointer; font-size:16px;
+  }
+  .arrow-btn:hover{border-color:var(--text-muted);}
+
+  /* FAQ */
+  details{border-bottom:1px solid var(--line); padding:20px 0;}
+  details:first-of-type{border-top:1px solid var(--line);}
+  summary{
+    cursor:pointer; list-style:none; font-family:var(--serif); font-size:18px;
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary .mark{font-family:var(--sans); color:var(--text-muted); font-size:20px; flex-shrink:0;}
+  details[open] summary .mark{transform:rotate(45deg);}
+  details p{margin-top:14px; color:var(--text-muted); font-size:15px; max-width:60ch;}
+
+  /* Contact */
+  .contact h2{margin-bottom:14px;}
+  .footer{padding:32px 0; font-size:13px; color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<div style="position:fixed; left:2px; top:0; width:22px; height:100vh; pointer-events:none; z-index:5;" aria-hidden="true">
+  <svg width="22" height="100%" viewBox="0 0 22 100" preserveAspectRatio="none">
+    <path id="tc-path" d="M11 0 C3 15,19 30,11 45 C3 60,19 75,11 90 C4 98,11 99,11 100" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+    <circle id="tc-dot" r="3.5" fill="var(--accent)"/>
+  </svg>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:22px; opacity:0; animation:hero-in .7s ease-out forwards;">
+      <img src="mostafa.jpg" alt="Mostafa Elmaghraby" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:1.5px solid var(--accent);">
+      <span class="muted" style="font-size:14px;">Mostafa Elmaghraby — AI Video Director</span>
+    </div>
+    <h1>Your next ad campaign, shot entirely by AI.</h1>
+    <p class="lede">I give you the creative direction and camera craft of a full production studio — without the studio's timeline or price tag.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">View concept work</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="benefits">
+  <div class="wrap">
+    <h2>What you're actually paying for</h2>
+    <p class="benefits-intro">You've probably asked an AI chatbot about AI video before landing here. Its answer was likely "cheaper and faster." That's true, but it's not the whole deal. Here's what you're actually getting.</p>
+
+    <ul class="benefit-list">
+      <li>
+        <p class="benefit-title">It looks like a real ad, not an AI experiment</p>
+        <p>Every shot is directed by a person: framing, lighting, pacing. The result feels like a finished commercial, not a tool demo.</p>
+      </li>
+      <li>
+        <p class="benefit-title">A fraction of the cost of a traditional shoot</p>
+        <p>No crew, no locations, no reshoots. And no limit on the scenes you can imagine, including ones that would be too expensive or impossible to film.</p>
+      </li>
+      <li>
+        <p class="benefit-title">Fast to make, easy to test</p>
+        <p>A quicker turnaround than a shoot, and room to produce a few versions of an idea, see what works, and put your media budget behind it.</p>
+      </li>
+      <li>
+        <p class="benefit-title">One person, from idea to final cut</p>
+        <p>Script, visuals, editing, and sound all come from me, so your brand voice stays consistent and you deal with one person who knows your project.</p>
+      </li>
+      <li>
+        <p class="benefit-title">Ready to run</p>
+        <p>Full commercial usage rights, and every video is kept free of real people's faces, famous logos, and protected characters.</p>
+      </li>
+    </ul>
+
+    <div class="benefit-fit">
+      <h3>Where AI video works best, and where I won't use it</h3>
+      <div class="fit-grid">
+        <div class="fit-col">
+          <p class="fit-label">Works best for</p>
+          <ul>
+            <li>Product and promo videos</li>
+            <li>Brand and awareness films</li>
+            <li>Explainers and introductions</li>
+          </ul>
+        </div>
+        <div class="fit-col">
+          <p class="fit-label">I won't use it for</p>
+          <ul>
+            <li>Customer testimonials</li>
+            <li>UGC-style ads with made-up people</li>
+          </ul>
+        </div>
+      </div>
+      <p class="muted fit-note">A testimonial only works when it comes from a real customer, so I leave those to your actual customers.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Concept work</h2>
+    <div class="pf-caption">
+      <p class="pf-tag" id="pf-tag">Concept work</p>
+      <p class="pf-title" id="pf-title"></p>
+      <p class="pf-desc" id="pf-desc"></p>
+    </div>
+    <div class="video-frame">
+      <div class="video-placeholder" id="pf-placeholder">
+        <div class="ring">&#9654;</div>
+        <span id="pf-instruction"></span>
+      </div>
+    </div>
+    <div class="pf-nav">
+      <div class="pf-dots" id="pf-dots"></div>
+      <div class="pf-arrows">
+        <button class="arrow-btn" id="pf-prev" aria-label="Previous">&#8592;</button>
+        <button class="arrow-btn" id="pf-next" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Common questions</h2>
+
+    <details>
+      <summary>How much does an AI video ad cost?<span class="mark">+</span></summary>
+      <p>A fraction of a traditional shoot, because there's no crew, no locations, and no reshoots. Your price depends on video length and how many versions you need, and you get a fixed quote before we start.</p>
+    </details>
+
+    <details>
+      <summary>Is it legal to use AI-generated videos for advertising?<span class="mark">+</span></summary>
+      <p>Yes. Your video is made on commercial-use plans, and you get full rights to use it in paid ads, social media, and on your website. I also keep every video free of real people's faces, famous logos, and protected characters, so it's clean from day one.</p>
+    </details>
+
+    <details>
+      <summary>Will an AI video ad improve my ROI?<span class="mark">+</span></summary>
+      <p>Yes, through two things: lower production cost and faster testing. You can launch several versions of the same ad, see which one performs, and put your media budget behind the winner, without paying for a new shoot each time.</p>
+    </details>
+
+    <details>
+      <summary>Can I run AI-generated ads on YouTube, Meta, and TikTok?<span class="mark">+</span></summary>
+      <p>Yes. AI-generated ads run on all three platforms, and each one handles its own AI labeling.</p>
+    </details>
+
+    <details>
+      <summary>How do I choose the right AI video partner?<span class="mark">+</span></summary>
+      <p>Choose someone who can show you work close to your industry, and who owns the whole process. I handle everything myself, from script to visuals, editing, and sound, so your brand voice stays consistent from the first frame to the last, and you deal with one person who knows your project.</p>
+    </details>
+
+    <details>
+      <summary>Can you make testimonial or UGC-style ads with AI?<span class="mark">+</span></summary>
+      <p>No. A testimonial only works when it comes from a real customer, so I don't make fake ones, and I'd steer you away from anyone who offers to. What I do make well: product and promo videos, brand films, and explainers.</p>
+    </details>
+
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2>Let's talk about your campaign</h2>
+    <p class="muted max-measure">Send a brief and I'll get back to you with a concept direction and a straight cost estimate.</p>
+    <div class="cta-row">
+      <a href="mailto:you@example.com" class="btn btn-primary">Email me</a>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="wrap">
+    <p>&copy; 2026 Mostafa Elmaghraby</p>
+  </div>
+</div>
+
+<script>
+  var tcPath = document.getElementById('tc-path');
+  var tcDot = document.getElementById('tc-dot');
+  var tcLen = tcPath.getTotalLength();
+  var tcTicking = false;
+  function tcUpdate(){
+    var doc = document.documentElement;
+    var scrollable = doc.scrollHeight - doc.clientHeight;
+    var pct = scrollable > 0 ? window.scrollY / scrollable : 0;
+    var pt = tcPath.getPointAtLength(pct * tcLen);
+    tcDot.setAttribute('cx', pt.x);
+    tcDot.setAttribute('cy', pt.y);
+    tcTicking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!tcTicking){ requestAnimationFrame(tcUpdate); tcTicking = true; }
+  }, {passive:true});
+  tcUpdate();
+</script>
+
+<script>
+  var items = [
+    {
+      title: "Snack brand remake",
+      desc: "A reimagined take on a well-known chip commercial, rebuilt shot for shot.",
+      videoSrc: "TrojanDoritos.mp4"
+    },
+    {
+      title: "Linen dress campaign",
+      desc: "A cinematic beach-set fashion ad for a tiered linen maxi dress.",
+      videoSrc: "videos/linen-dress.mp4"
+    },
+    {
+      title: "Testa Toro",
+      desc: "A mascot-led concept for a men's footwear brand, built around street-wisdom rules.",
+      videoSrc: "videos/testa-toro.mp4"
+    },
+    {
+      title: "Cheese brand remake",
+      desc: "A remake of a classic cheese ad, shot on an 18mm fisheye lens.",
+      videoSrc: "videos/panda-cheese.mp4"
+    }
+  ];
+
+  var idx = 0;
+  var titleEl = document.getElementById('pf-title');
+  var descEl = document.getElementById('pf-desc');
+  var dotsEl = document.getElementById('pf-dots');
+  var placeholderEl = document.getElementById('pf-placeholder');
+  var instructionEl = document.getElementById('pf-instruction');
+  var frameEl = document.querySelector('#work .video-frame');
+
+  function renderDots(){
+    dotsEl.innerHTML = '';
+    items.forEach(function(_, i){
+      var b = document.createElement('button');
+      b.className = 'dot' + (i === idx ? ' active' : '');
+      b.setAttribute('aria-label', 'Show item ' + (i + 1));
+      b.addEventListener('click', function(){ idx = i; render(); });
+      dotsEl.appendChild(b);
+    });
+  }
+
+  var captionEl = document.querySelector('.pf-caption');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function paint(){
+    var item = items[idx];
+    titleEl.textContent = item.title;
+    descEl.textContent = item.desc;
+    renderDots();
+
+    var existingVideo = frameEl.querySelector('video');
+    if(existingVideo) existingVideo.remove();
+
+    if(item.videoSrc){
+      placeholderEl.style.display = 'none';
+      var video = document.createElement('video');
+      video.src = item.videoSrc;
+      video.setAttribute('playsinline', '');
+      video.muted = true;
+      video.controls = true;
+      video.style.position = 'absolute';
+      video.style.inset = '0';
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+      frameEl.appendChild(video);
+    } else {
+      placeholderEl.style.display = 'flex';
+      instructionEl.textContent = 'Add "' + item.title + '" video: set its videoSrc in the script at the bottom of the HTML';
+    }
+  }
+
+  function render(){
+    if(reduceMotion){
+      paint();
+      return;
+    }
+    captionEl.classList.add('is-switching');
+    frameEl.classList.add('is-switching');
+    setTimeout(function(){
+      paint();
+      captionEl.classList.remove('is-switching');
+      frameEl.classList.remove('is-switching');
+    }, 200);
+  }
+
+  document.getElementById('pf-prev').addEventListener('click', function(){
+    idx = (idx - 1 + items.length) % items.length;
+    render();
+  });
+  document.getElementById('pf-next').addEventListener('click', function(){
+    idx = (idx + 1) % items.length;
+    render();
+  });
+
+  var touchStartX = 0;
+  frameEl.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+  frameEl.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(dx > 40){ idx = (idx - 1 + items.length) % items.length; render(); }
+    else if(dx < -40){ idx = (idx + 1) % items.length; render(); }
+  });
+
+  paint();
+</script>
+
+</body>
+</html>
